@@ -99,11 +99,11 @@ Once the application is running, follow the console prompts to:
 
 Task Conflict :
 
-![](pattern/img14.png)
+![](Images/img14.png)
 
 Tima invalid:
 
-![](pattern/img15.png)
+![](Images/img15.png)
 
 ## Remove Existing Task
 
@@ -119,11 +119,11 @@ Checks both cases
 
 Negative Case
 
-![](pattern/img16.png)
+![](Images/img16.png)
 
 ## Mark as Completed, View Completed and Pending Tasks
 
-![](pattern/img16.png)
+![](Images/img16.png)
 
 ---
 
