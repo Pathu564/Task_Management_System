@@ -1,7 +1,5 @@
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.logging.Level;
-
 
 public class Task {
     private String name;
@@ -10,15 +8,14 @@ public class Task {
     private String priority;
     private boolean completed;
 
-    // Define a constant TIME_FORMATTER for time parsing
-    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("HH:mm[:ss]");
 
     public Task(String name, String startTime, String endTime, String priority) {
         this.name = name;
-        this.startTime = LocalTime.parse(startTime, TIME_FORMATTER);
-        this.endTime = LocalTime.parse(endTime, TIME_FORMATTER);
+        this.startTime = LocalTime.parse(startTime, FORMATTER);
+        this.endTime = LocalTime.parse(endTime, FORMATTER);
         this.priority = priority;
-        this.completed = false;  // Initially not completed
+        this.completed = false;
     }
 
     public String getName() {
@@ -41,36 +38,39 @@ public class Task {
         return completed;
     }
 
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
-    }
-
     public void setStartTime(String startTime) {
-        this.startTime = LocalTime.parse(startTime, TIME_FORMATTER);
-        //CustomLogger.log(Level.INFO, "Start time updated for task: " + name);
+        this.startTime = LocalTime.parse(startTime, FORMATTER);
     }
 
     public void setEndTime(String endTime) {
-        this.endTime = LocalTime.parse(endTime, TIME_FORMATTER);
+        this.endTime = LocalTime.parse(endTime, FORMATTER);
     }
 
     public void setPriority(String priority) {
         this.priority = priority;
     }
 
-    
-    public static boolean isValidTimeFormat(String time) {
-        try {
-            LocalTime.parse(time, TIME_FORMATTER);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 
     @Override
     public String toString() {
-        return String.format("Task{name='%s', startTime=%s, endTime=%s, priority='%s', completed=%b}", 
-            name, startTime, endTime, priority, completed);
+        return String.format("Task: %s | %s - %s | Priority: %s | Completed: %s",
+                name,
+                startTime.toString(),
+                endTime.toString(),
+                priority,
+                completed ? "Yes" : "No");
+    }
+
+    // Validate time format as HH:mm (used when creating task via user input)
+    public static boolean isValidTimeFormat(String time) {
+        try {
+            LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
